@@ -1,6 +1,7 @@
 import requests
 import threading
 import time
+import os
 
 # Function to send HTTP requests
 def send_request(url):
@@ -11,15 +12,23 @@ def send_request(url):
         except requests.exceptions.RequestException as e:
             print(f"Error sending request to {url}: {e}")
 
+# Function to clear the console screen
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 # Function to animate the banner
 def animate_banner():
     banner_text = "DARK WORLD"
     banner_length = len(banner_text)
 
+    # Clear the screen
+    clear_screen()
+
     # Animate the banner
     while True:
         for i in range(banner_length):
-            print("\r" + banner_text[i:] + banner_text[:i], end="")
+            clear_screen()
+            print(banner_text[i:] + banner_text[:i])
             time.sleep(0.5)
 
 # Main function
